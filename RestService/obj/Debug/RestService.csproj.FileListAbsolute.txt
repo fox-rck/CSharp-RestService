@@ -1,0 +1,5 @@
+C:\Websites\PhoneGapLearning\RestService\RestService\obj\Debug\ResolveAssemblyReference.cache
+C:\Websites\PhoneGapLearning\RestService\RestService\bin\RestService.dll
+C:\Websites\PhoneGapLearning\RestService\RestService\bin\RestService.pdb
+C:\Websites\PhoneGapLearning\RestService\RestService\obj\Debug\RestService.dll
+C:\Websites\PhoneGapLearning\RestService\RestService\obj\Debug\RestService.pdb
