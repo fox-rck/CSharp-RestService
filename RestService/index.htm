@@ -103,6 +103,13 @@
     <p id="textDiv">
     This page basically makes invocations to the domain using cross-site XMLHttpRequest mitigated by Access Control.
     </p>
+    <p>Use console with following commands:</p>
+    <ul>
+    <li>sendRequest("/RestServiceImpl.svc/json/123",handleRequest,"","GET");</li>
+    <li>sendRequest("/RestServiceImpl.svc/json/123",handleRequest,'{"Name":"Test Name","Age":"27"}',"POST");</li>
+    <li>sendRequest("/RestServiceImpl.svc/json/123",handleRequest,'{"Name":"Test Name","Age":"27"}',"PUT");</li>
+    <li>sendRequest("/RestServiceImpl.svc/json/123",handleRequest,"","DELETE");</li>
+    </ul>
 
 </body>
 </html>
