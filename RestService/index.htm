@@ -1,0 +1,108 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>Simple use of Cross-Site XMLHttpRequest (Using Access Control)</title>
+    <!--<script type="text/javascript">
+    //<![CDATA[
+    
+    var invocation = new XMLHttpRequest();
+    var url = 'http://restapidemo.com/employee?id=3552';
+    var invocationHistoryText;
+    
+    function callOtherDomain(){
+        if(invocation)
+        {    
+            invocation.open('GET', url, true);
+            invocation.onreadystatechange = handler;
+            invocation.send(); 
+        }
+        else
+        {
+            invocationHistoryText = "No Invocation TookPlace At All";
+            var textNode = document.createTextNode(invocationHistoryText);
+            var textDiv = document.getElementById("textDiv");
+            textDiv.appendChild(textNode);
+        }
+        
+    }
+    function handler(evtXHR)
+    {
+        if (invocation.readyState == 4)
+        {
+                if (invocation.status == 200)
+                {
+                    var response = invocation.responseXML;
+                    var invocationHistory = response.getElementsByTagName('invocationHistory').item(0).firstChild.data;
+                    invocationHistoryText = document.createTextNode(invocationHistory);
+                    var textDiv = document.getElementById("textDiv");
+                    textDiv.appendChild(invocationHistoryText);
+                    
+                }
+                else
+                    alert("Invocation Errors Occured");
+        }
+        else
+            dump("currently the application is at" + invocation.readyState);
+    }
+    //]]>
+    
+    
+    </script>-->
+    <script>
+        function sendRequest(url, callback, postData, methodtype) {
+            var req = createXMLHTTPObject();
+            if (!req) return;
+            var method = (postData) ? "POST" : "GET";
+            method = (methodtype) ? methodtype : method;
+            req.open(method, url, true);
+            req.setRequestHeader('User-Agent', 'XMLHTTP/1.0');
+            if (postData)
+                req.setRequestHeader('Content-type', 'application/json');
+            req.onreadystatechange = function () {
+                if (req.readyState != 4) return;
+                if (req.status != 200 && req.status != 304) {
+                    //			alert('HTTP error ' + req.status);
+                    return;
+                }
+                callback(req);
+            }
+            if (req.readyState == 4) return;
+            req.send(postData);
+        }
+
+        var XMLHttpFactories = [
+	function () { return new XMLHttpRequest() },
+	function () { return new ActiveXObject("Msxml2.XMLHTTP") },
+	function () { return new ActiveXObject("Msxml3.XMLHTTP") },
+	function () { return new ActiveXObject("Microsoft.XMLHTTP") }
+];
+
+        function createXMLHTTPObject() {
+            var xmlhttp = false;
+            for (var i = 0; i < XMLHttpFactories.length; i++) {
+                try {
+                    xmlhttp = XMLHttpFactories[i]();
+                }
+                catch (e) {
+                    continue;
+                }
+                break;
+            }
+            return xmlhttp;
+        }
+
+        function handleRequest(req) {
+            var writeroot = document.getElementById("textDiv");
+            writeroot.innerHTML = req.responseText;
+        }
+    </script>
+</head>
+<body>
+    
+    <p id="textDiv">
+    This page basically makes invocations to the domain using cross-site XMLHttpRequest mitigated by Access Control.
+    </p>
+
+</body>
+</html>
